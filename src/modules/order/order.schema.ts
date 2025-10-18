@@ -6,7 +6,7 @@ export const orderItemSchema = z.object({
 });
 
 export const createOrderSchema = z.object({
-    customerId: z.string(),
+    customerId: z.string().optional(),
     items: z.array(orderItemSchema),
 });
 

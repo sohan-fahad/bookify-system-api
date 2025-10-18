@@ -10,7 +10,7 @@ import ENV from "../../ENV";
 const createOrder = async (order: CreateOrderSchemaType) => {
     const { customerId, items } = order;
 
-    const customer = await userService.findById(customerId);
+    const customer = await userService.findById(customerId as string);
     if (!customer) {
         throw new Error("Customer not found");
     }
@@ -18,14 +18,8 @@ const createOrder = async (order: CreateOrderSchemaType) => {
     const bookIds = items.map((item: OrderItemSchemaType) => item.bookId);
     const validatedBooks = await bookService.validateBulkBookIds(bookIds);
 
-    if (validatedBooks.length !== items.length) {
-        const foundIds = validatedBooks.map(b => (b._id as Types.ObjectId).toString());
-        const missingIds = bookIds.filter(id => !foundIds.includes(id));
-        throw new Error(`Books not found: ${missingIds.join(', ')}`);
-    }
-
     const orderItems = validatedBooks.map(book => {
-        const item = items.find(i => new Types.ObjectId(i.bookId) === book._id);
+        const item = items.find(i => i.bookId === (book._id as Types.ObjectId).toString());
         return {
             bookId: book._id as Types.ObjectId,
             quantity: item!.quantity,
@@ -41,16 +35,16 @@ const createOrder = async (order: CreateOrderSchemaType) => {
     const existingOrderCount = await Order.countDocuments({
         customerId: new Types.ObjectId(customerId)
     });
+
     const isFirstPurchase = existingOrderCount === 0;
 
-    const totalCreditsEarned = isFirstPurchase ? ENV.FIRST_PURCHASE_CREDITS : 0;
 
     const orderData: Partial<IOrder> = {
         customerId: new Types.ObjectId(customerId),
         items: orderItems,
         totalAmount,
         isFirstPurchase,
-        totalCreditsEarned
+        totalCreditsEarned: 0
     };
 
     const session = await mongoose.startSession();
@@ -58,6 +52,7 @@ const createOrder = async (order: CreateOrderSchemaType) => {
 
     try {
         const [newOrder] = await Order.create([orderData], { session });
+
 
         if (isFirstPurchase && customer.referredBy) {
             const referrer = await userService.findById(customer.referredBy.toString());
@@ -85,6 +80,11 @@ const createOrder = async (order: CreateOrderSchemaType) => {
                     User.updateOne(
                         { _id: customer._id },
                         { $inc: { credits: ENV.FIRST_PURCHASE_CREDITS } },
+                        { session }
+                    ),
+                    Order.updateOne(
+                        { _id: newOrder._id },
+                        { $set: { totalCreditsEarned: ENV.FIRST_PURCHASE_CREDITS } },
                         { session }
                     )
                 ]);
@@ -119,6 +119,8 @@ const getOrders = async (query: OrderQuerySchemaType) => {
         .skip(skip)
         .limit(Number(limit))
         .select("-__v")
+        .populate("customerId", "name email")
+        .populate("items.bookId", "title author year language country price")
         .lean();
 
     const total = await Order.countDocuments(filter);
@@ -134,7 +136,11 @@ const getOrders = async (query: OrderQuerySchemaType) => {
 };
 
 const getOrderById = async (id: string) => {
-    return await Order.findById(id).select("-__v").lean();
+    return await Order.findById(id)
+        .select("-__v")
+        .populate("customerId", "name email")
+        .populate("items.bookId", "title author year language country price")
+        .lean();
 };
 
 

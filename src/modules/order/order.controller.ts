@@ -6,6 +6,8 @@ import responseUtils from "../../utils/response.utils";
 const createOrderHandler = async (req: Request, res: Response) => {
     try {
         const body = req.body as CreateOrderSchemaType;
+        const { id } = req.user as ITokenResponsePayload['user'];
+        body.customerId = id;
         const order = await orderService.createOrder(body);
         return responseUtils.successResponse(res, {
             message: "Order created successfully",

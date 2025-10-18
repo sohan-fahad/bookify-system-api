@@ -3,7 +3,9 @@ import responseUtils from "../utils/response.utils";
 import jwtUtils from "../utils/jwt.utils";
 
 export default async (req: Request, res: Response, next: NextFunction) => {
+
     const token = req.headers.authorization?.split(" ")[1];
+
 
     if (!token) {
         return responseUtils.errorResponse(res, {
@@ -16,7 +18,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
         const isExpiredToken = jwtUtils.isExpiredToken(token);
 
-        console.log("isExpiredToken from auth middleware: ", isExpiredToken);
 
         if (isExpiredToken) {
             return responseUtils.errorResponse(res, {
@@ -25,9 +26,8 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             });
         }
 
-        const decoded = jwtUtils.extractTokenFromHeader(token);
+        const decoded = jwtUtils.decodeToken(token);
 
-        console.log("decoded from auth middleware: ", decoded);
 
         req.user = decoded?.user;
 
