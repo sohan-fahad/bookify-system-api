@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express"
+import { Request, Response } from "express"
 import { LoginSchemaType } from "./auth.schema.js"
 import responseUtils from "../../utils/response.utils.js"
 import bcryptUtils from "../../utils/bcrypt.utils.js"
@@ -8,7 +8,6 @@ import jwtUtils from "../../utils/jwt.utils.js"
 const registerHandler = async (
     req: Request,
     res: Response,
-    next: NextFunction
 ) => {
     try {
 
@@ -42,7 +41,6 @@ const registerHandler = async (
 const loginHandler = async (
     req: Request,
     res: Response,
-    next: NextFunction
 ) => {
     try {
         const { email, password } = req.body as LoginSchemaType

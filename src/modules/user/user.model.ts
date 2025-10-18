@@ -71,7 +71,7 @@ const UserSchema: Schema<IUser> = new Schema<IUser>(
 
 UserSchema.index({ referredBy: 1 });
 
-const User: Model<IUser> =
+export const User: Model<IUser> =
     mongoose.models.User || mongoose.model<IUser>("User", UserSchema);
 
 export default User;

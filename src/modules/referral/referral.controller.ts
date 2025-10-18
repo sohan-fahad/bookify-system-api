@@ -1,14 +1,52 @@
+import { ITokenResponsePayload } from "../../utils/jwt.utils";
 import responseUtils from "../../utils/response.utils";
+import userService from "../user/user.service";
 import { ReferralQuerySchemaType } from "./referral.schema";
 import referralService from "./referral.service";
-import { Request, Response, NextFunction } from "express"
+import { Request, Response } from "express"
 
 const getAllReferralHandler = async (req: Request, res: Response) => {
     try {
-        const { data, ...rest } = await referralService.getAll(req.query as unknown as ReferralQuerySchemaType);
+
+        let query: ReferralQuerySchemaType = req.query as unknown as ReferralQuerySchemaType;
+
+        const { data, meta } = await referralService.getAll(query);
+
         return responseUtils.successResponse(res, {
             data: data,
-            meta: rest.meta,
+            meta: meta,
+            message: "Referral fetched successfully",
+            statusCode: 200,
+
+        });
+    } catch (error: any) {
+        return responseUtils.errorResponse(res, {
+            message: error.message,
+            statusCode: 500,
+        });
+    }
+}
+
+const getMyReferralsHandler = async (req: Request, res: Response) => {
+    try {
+
+        let query: ReferralQuerySchemaType = req.query as unknown as ReferralQuerySchemaType;
+
+        const { id } = req.user as ITokenResponsePayload['user'];
+        const user = await userService.findById(id);
+        if (!user) {
+            return responseUtils.errorResponse(res, {
+                message: "User not found",
+                statusCode: 404,
+            });
+        }
+        query.referrerUserId = id;
+
+        const { data, meta } = await referralService.getAll(query);
+
+        return responseUtils.successResponse(res, {
+            data: data,
+            meta: meta,
             message: "Referral fetched successfully",
             statusCode: 200,
 
@@ -23,7 +61,17 @@ const getAllReferralHandler = async (req: Request, res: Response) => {
 
 const getMetricsHandler = async (req: Request, res: Response) => {
     try {
-        const metrics = await referralService.getMetrics();
+        const { id } = req.user as ITokenResponsePayload['user'];
+
+        const user = await userService.findById(id);
+        if (!user) {
+            return responseUtils.errorResponse(res, {
+                message: "User not found",
+                statusCode: 404,
+            });
+        }
+
+        const metrics = await referralService.getMetrics(id);
         return responseUtils.successResponse(res, {
             data: metrics,
             message: "Metrics fetched successfully",
@@ -40,5 +88,6 @@ const getMetricsHandler = async (req: Request, res: Response) => {
 
 export default {
     getAllReferralHandler,
+    getMyReferralsHandler,
     getMetricsHandler,
 }

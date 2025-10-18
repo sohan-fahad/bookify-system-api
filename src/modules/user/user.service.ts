@@ -17,8 +17,8 @@ const findMany = async (query: UserQuery = {}): Promise<IUser[]> => {
     return await User.find(query);
 };
 
-const findById = async (id: string): Promise<IUser | null> => {
-    return await User.findById(id);
+const findById = async (id: string) => {
+    return await User.findById(id).select("-__v -password").lean();
 };
 
 const findUserByEmail = async (email: string): Promise<IUser | null> => {

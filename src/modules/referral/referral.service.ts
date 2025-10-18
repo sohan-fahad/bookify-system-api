@@ -48,14 +48,14 @@ const getAll = async (query: ReferralQuerySchemaType) => {
     };
 };
 
-const getMetrics = async () => {
-    const total = await Referral.countDocuments();
-    const totalConverted = await Referral.countDocuments({ status: "converted" });
-    const totalPending = await Referral.countDocuments({ status: "pending" });
+const getMetrics = async (userId: string) => {
+    const total = await Referral.countDocuments({ referrerUserId: userId });
+    const totalConverted = await Referral.countDocuments({ status: "converted", referrerUserId: userId });
+    const totalPending = await Referral.countDocuments({ status: "pending", referrerUserId: userId });
     return {
         total,
-        totalConverted,
-        totalPending,
+        totalConverted: totalConverted,
+        totalPending: totalPending,
     };
 };
 

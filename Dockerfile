@@ -4,12 +4,15 @@ RUN npm install -g pnpm@10.13.1
 
 WORKDIR /app
 
-COPY package*.json ./
-COPY pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml ./
 
-RUN pnpm install
+RUN pnpm install --frozen-lockfile
 
-COPY dist ./dist
+COPY . .
+
+RUN pnpm build
+
+RUN pnpm prune --prod
 
 RUN echo "Verifying copied files:" && ls -la dist
 
@@ -23,4 +26,4 @@ HEALTHCHECK --interval=5s --timeout=3s \
     CMD curl --fail --retry 3 --retry-delay 5 http://localhost:${PORT}/health || exit 1
 
 
-CMD [ "node", "./dist/app.js" ]
+CMD ["dumb-init", "node", "dist/index.js"]

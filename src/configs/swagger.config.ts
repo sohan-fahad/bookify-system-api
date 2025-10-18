@@ -9,7 +9,6 @@ const options: swaggerJsdoc.Options = {
             version: "1.0.0",
             description: "A referral system API for users and referrals",
         },
-        servers: [{ url: `http://localhost:${ENV.PORT}` }],
         components: {
             securitySchemes: {
                 bearerAuth: {

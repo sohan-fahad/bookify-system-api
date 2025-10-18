@@ -1,7 +1,7 @@
 import express, { Router } from "express"
 import bookController from "./book.controller";
 import validatorMiddleware from "../../middlewares/validator.middleware";
-import { bookSchema } from "./book.schema";
+import { bookQuerySchema } from "./book.schema";
 
 const bookRoutes: Router = express.Router();
 
@@ -95,7 +95,7 @@ const bookRoutes: Router = express.Router();
 
 /**
  * @openapi
- * /api/v1/book:
+ * /api/v1/books:
  *   get:
  *     summary: Get books with pagination and search
  *     description: Retrieve a paginated list of books with optional search functionality
@@ -161,6 +161,7 @@ const bookRoutes: Router = express.Router();
  *                   author: Harper Lee
  *                   year: 1960
  *                   pages: 324
+ *                   price: 100
  *                   language: English
  *                   country: USA
  *                   imageLink: https://example.com/mockingbird.jpg
@@ -190,6 +191,6 @@ const bookRoutes: Router = express.Router();
  *               success: false
  *               message: Internal server error
  */
-bookRoutes.get("/", validatorMiddleware.validateQueryMiddleware(bookSchema), bookController.getBooksHandler);
+bookRoutes.get("/", validatorMiddleware.validateQueryMiddleware(bookQuerySchema), bookController.getBooksHandler);
 
 export default bookRoutes;

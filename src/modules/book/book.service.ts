@@ -19,7 +19,12 @@ const getBooks = async (query: BookQuerySchemaType) => {
     }
 
 
-    const books = await Book.find(queryObject).limit(Number(limit)).skip(Number(skip)).sort({ createdAt: sortBy });
+    const books = await Book.find(queryObject)
+        .limit(Number(limit))
+        .skip(Number(skip))
+        .sort({ createdAt: sortBy })
+        .select("-__v")
+        .lean();
     const total = await Book.countDocuments(queryObject);
 
     return {
@@ -32,6 +37,12 @@ const getBooks = async (query: BookQuerySchemaType) => {
     };
 }
 
+const validateBulkBookIds = async (bookIds: string[]) => {
+    const books = await Book.find({ _id: { $in: bookIds } }).select("-__v");
+    return books;
+}
+
 export default {
     getBooks,
+    validateBulkBookIds,
 }

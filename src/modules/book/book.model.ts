@@ -10,6 +10,7 @@ export interface IBook extends Document {
     country: string;
     imageLink: string;
     link: string;
+    price: number;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -24,6 +25,7 @@ const BookSchema: Schema<IBook> = new Schema<IBook>({
     country: { type: String, required: true },
     imageLink: { type: String, required: true },
     link: { type: String, required: true },
+    price: { type: Number, required: true },
 });
 
 BookSchema.index({ title: 1 });
