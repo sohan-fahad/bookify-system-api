@@ -1,0 +1,35 @@
+services:
+  db:
+    image: mongo:latest
+    ports:
+      - "27018:27017"  # Host:Container - Using 27018 on host to avoid conflicts
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=12345678
+    volumes:
+      - mongo_data:/data/db
+  
+  
+  referral-system-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - PORT=4001
+    image: referral-system-api:latest
+    restart: always
+    ports:
+      - "4001:4001" # Host:Container
+    depends_on:
+      - db
+    environment:
+      - MODE=production
+      - PORT=4001
+      - MONGO_URI=mongodb://admin:12345678@db:27017/?authSource=admin
+    volumes:
+      - ./dist:/app/dist
+      - ./package.json:/app/package.json
+      - ./pnpm-lock.yaml:/app/pnpm-lock.yaml
+
+volumes:
+  mongo_data:

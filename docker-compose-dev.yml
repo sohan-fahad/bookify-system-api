@@ -1,0 +1,38 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: referral-mongo
+    ports:
+      - "27017:27017"
+    command: ["--replSet", "rs0", "--bind_ip_all"]
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: echo "try { rs.status() } catch (err) { rs.initiate({_id:'rs0',members:[{_id:0,host:'localhost:27017'}]}) }" | mongosh --port 27017 --quiet
+      interval: 5s
+      timeout: 30s
+      start_period: 0s
+      start_interval: 1s
+      retries: 30
+
+  # referral-system-api:
+  #   container_name: referral-system-api
+  #   image: referral-system-api
+  #   build:
+  #     context: .
+  #     dockerfile: ./Dockerfile.dev
+  #   restart: always
+  #   ports:
+  #     - 4001:4001
+  #   volumes:
+  #     - .:/app
+  #     - referral-system-api-node-modules:/app/node_modules
+  #   env_file:
+  #     - .env
+  #   command: 'pnpm run dev'
+  #   depends_on:
+  #     - db
+
+volumes:
+  referral-container:   
+  mongo_data:
