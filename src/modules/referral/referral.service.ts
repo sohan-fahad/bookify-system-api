@@ -34,6 +34,7 @@ const getAll = async (query: ReferralQuerySchemaType) => {
         .skip(skip)
         .sort({ createdAt: sortBy })
         .select("-__v")
+        .populate("referredUserId", "name email")
         .lean();
 
     const total = await Referral.countDocuments(queryObject);

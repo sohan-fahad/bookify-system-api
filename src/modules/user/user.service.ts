@@ -33,7 +33,7 @@ const findUserByReferralCode = async (
 
 const createUser = async (input: RegisterSchemaType) => {
     const hashedPassword = await bcryptUtils.hashPassword(input.password);
-    const referralCode = helperUtils.generateReferralCode();
+    const referralCode = helperUtils.generateReferralCode(input.name);
 
     const { email, ...rest } = input;
 

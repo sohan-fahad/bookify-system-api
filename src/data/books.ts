@@ -1,9 +1,8 @@
 export default [
     {
-        "id": "001",
         "author": "Chinua Achebe",
         "country": "Nigeria",
-        "imageLink": "https://unsplash.com/photos/9DaOYUYnOls",
+        "imageLink": "https://upload.wikimedia.org/wikipedia/en/6/65/ThingsFallApart.jpg",
         "language": "English",
         "link": "https://en.wikipedia.org/wiki/Things_Fall_Apart\n",
         "pages": 209,
@@ -12,10 +11,9 @@ export default [
         "price": 100
     },
     {
-        "id": "002",
         "author": "Hans Christian Andersen",
         "country": "Denmark",
-        "imageLink": "https://unsplash.com/photos/CXYPfveiuis",
+        "imageLink": "https://m.media-amazon.com/images/I/91YzQ7lOiyL._AC_UF894,1000_QL80_.jpg",
         "language": "Danish",
         "link": "https://en.wikipedia.org/wiki/Fairy_Tales_Told_for_Children._First_Collection.\n",
         "pages": 784,
@@ -24,10 +22,9 @@ export default [
         "price": 100
     },
     {
-        "id": "003",
         "author": "Dante Alighieri",
         "country": "Italy",
-        "imageLink": "https://unsplash.com/photos/9zsHNt5OpqE",
+        "imageLink": "https://cdn.kobo.com/book-images/6e5d9a87-148d-4846-aecb-061f0a0bcf14/1200/1200/False/the-divine-comedy-51.jpg",
         "language": "Italian",
         "link": "https://en.wikipedia.org/wiki/Divine_Comedy\n",
         "pages": 928,
@@ -36,10 +33,9 @@ export default [
         "price": 100
     },
     {
-        "id": "004",
         "author": "Unknown",
         "country": "Sumer and Akkadian Empire",
-        "imageLink": "https://unsplash.com/photos/bhBONc07WsI",
+        "imageLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDGgAVElbTknMrDfVG6rVFfQfefVfcG0TdDg&s",
         "language": "Akkadian",
         "link": "https://en.wikipedia.org/wiki/Epic_of_Gilgamesh\n",
         "pages": 160,
@@ -48,10 +44,9 @@ export default [
         "price": 100
     },
     {
-        "id": "005",
         "author": "Unknown",
         "country": "Achaemenid Empire",
-        "imageLink": "https://unsplash.com/photos/g827ZOCwt30",
+        "imageLink": "https://lifesourcebookshop.co.uk/wp-content/uploads/book_of_job_4q16_bible_book_shelf_graham_i_cover.jpg",
         "language": "Hebrew",
         "link": "https://en.wikipedia.org/wiki/Book_of_Job\n",
         "pages": 176,
@@ -60,10 +55,9 @@ export default [
         "price": 100
     },
     {
-        "id": "006",
         "author": "Unknown",
         "country": "India/Iran/Iraq/Egypt/Tajikistan",
-        "imageLink": "https://unsplash.com/photos/UhdlN7u87nA",
+        "imageLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnkt9sOy8zevAHPbRRtpJ4CZSkAGEeUo_Niw&s",
         "language": "Arabic",
         "link": "https://en.wikipedia.org/wiki/One_Thousand_and_One_Nights\n",
         "pages": 288,
@@ -72,10 +66,9 @@ export default [
         "price": 200
     },
     {
-        "id": "007",
         "author": "Unknown",
         "country": "Iceland",
-        "imageLink": "https://unsplash.com/photos/zMRLZh40kms",
+        "imageLink": "https://images.unsplash.com/photo-1544947950-fa07a98d237f",
         "language": "Old Norse",
         "link": "https://en.wikipedia.org/wiki/Nj%C3%A1ls_saga\n",
         "pages": 384,
@@ -84,10 +77,9 @@ export default [
         "price": 250
     },
     {
-        "id": "008",
         "author": "Jane Austen",
         "country": "United Kingdom",
-        "imageLink": "https://unsplash.com/photos/-FVaZbu6ZAE",
+        "imageLink": "https://www.harryhartog.com.au/cdn/shop/products/9781435159631.jpg?v=1662072834",
         "language": "English",
         "link": "https://en.wikipedia.org/wiki/Pride_and_Prejudice\n",
         "pages": 226,
@@ -96,10 +88,9 @@ export default [
         "price": 300
     },
     {
-        "id": "009",
         "author": "Honor\u00e9 de Balzac",
         "country": "France",
-        "imageLink": "https://unsplash.com/photos/YTRtCfniV8I",
+        "imageLink": "https://librairiegrandscaracteres.fr/wp-content/uploads/2025/04/9782378287719-scaled.jpg",
         "language": "French",
         "link": "https://en.wikipedia.org/wiki/Le_P%C3%A8re_Goriot\n",
         "pages": 443,
@@ -108,10 +99,9 @@ export default [
         "price": 350
     },
     {
-        "id": "010",
         "author": "Samuel Beckett",
         "country": "Republic of Ireland",
-        "imageLink": "https://unsplash.com/photos/DRZQLqm-wk8",
+        "imageLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAbAFm07KK7MijibJv6I7gVVqgiKcS5Xj3XA&s",
         "language": "French, English",
         "link": "https://en.wikipedia.org/wiki/Molloy_(novel)\n",
         "pages": 256,
