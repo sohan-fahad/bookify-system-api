@@ -18,8 +18,6 @@ RUN echo "Verifying copied files:" && ls -la dist
 
 ARG PORT=4001
 ENV PORT=${PORT}
-ENV MODE="production"
-ENV MONGO_URI="mongodb://admin:123456178@db:27017/referral-system-db?authSource=admin"
 
 EXPOSE ${PORT}
 
