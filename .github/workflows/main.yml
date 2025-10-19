@@ -26,29 +26,9 @@ jobs:
     needs: build
     
     steps:
-    - name: Deploy with Docker Compose
-      env:
-        DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
-        DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}} 
-      run: |
-
-        # Login to Dockerhub
-        docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-        
-        # Pull latest API image
-        sudo docker pull sohan44512/referral-system:latest
-        
-        # Stop existing services
-        sudo docker-compose -f docker-compose.prod.yml down || true
-        
-        # Start services
-        sudo docker-compose -f docker-compose.prod.yml up -d
-        
-        # Wait for services to be ready
-        sleep 15
-        
-        # Check if services are running
-        sudo docker ps
-        
-        # Test API health
-        curl -f http://localhost:4001/health || echo "API health check failed"
+    - name: Pull Docker image
+      run: sudo docker pull sohan44512/referral-system:latest
+    - name: Delete Old docker container
+      run: sudo docker rm -f referral-system-container || true
+    - name: Run Docker Container
+      run: sudo docker run -d -p 4001:4001 --name referral-system-container sohan44512/referral-system:latest
