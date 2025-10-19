@@ -26,56 +26,9 @@ jobs:
     needs: build
     
     steps:
-    - name: Deploy MongoDB and API
-      run: |
-        # Pull latest images
-        sudo docker pull sohan44512/referral-system:latest
-        sudo docker pull mongo:7
-        
-        # Stop and remove old containers
-        sudo docker stop referral-system-container referral-mongo || true
-        sudo docker rm referral-system-container referral-mongo || true
-        
-        # Create network
-        sudo docker network create referral-network || true
-        
-        # Run MongoDB with health check
-        sudo docker run -d \
-          --name referral-mongo \
-          --network referral-network \
-          -p 27017:27017 \
-          -e MONGO_INITDB_ROOT_USERNAME=admin \
-          -e MONGO_INITDB_ROOT_PASSWORD=password123 \
-          -e MONGO_INITDB_DATABASE=referral_system \
-          --restart unless-stopped \
-          --health-cmd="mongosh --eval 'db.runCommand({ ping: 1 })'" \
-          --health-interval=30s \
-          --health-timeout=10s \
-          --health-retries=3 \
-          mongo:7
-        
-        # Wait for MongoDB to be ready
-        echo "Waiting for MongoDB to be ready..."
-        timeout 60 bash -c 'until sudo docker exec referral-mongo mongosh --eval "db.runCommand({ ping: 1 })" > /dev/null 2>&1; do sleep 2; done'
-        
-        # Run API container
-        sudo docker run -d \
-          --name referral-system-container \
-          --network referral-network \
-          -p 4001:4001 \
-          -e NODE_ENV=production \
-          -e PORT=4001 \
-          -e MONGO_URI="mongodb://admin:password123@referral-mongo:27017/referral_system?authSource=admin" \
-          --restart unless-stopped \
-          --health-cmd="curl -f http://localhost:4001/health || exit 1" \
-          --health-interval=30s \
-          --health-timeout=10s \
-          --health-retries=3 \
-          sohan44512/referral-system:latest
-        
-        # Wait for API to be ready
-        echo "Waiting for API to be ready..."
-        timeout 60 bash -c 'until curl -f http://localhost:4001/health > /dev/null 2>&1; do sleep 2; done'
-        
-        # Show running containers
-        sudo docker ps
+    - name: Pull Docker image
+      run: sudo docker pull sohan44512/referral-system:latest
+    - name: Delete Old docker container
+      run: sudo docker rm -f referral-system-container || true
+    - name: Run Docker Container
+      run: sudo docker run -d --name referral-system-container sohan44512/referral-system:latest
