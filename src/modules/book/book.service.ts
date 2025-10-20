@@ -1,4 +1,4 @@
-import Book from "./book.model";
+import Book from "./book.model.js";
 import { BookQuerySchemaType } from "./book.schema.js";
 
 const getBooks = async (query: BookQuerySchemaType) => {
