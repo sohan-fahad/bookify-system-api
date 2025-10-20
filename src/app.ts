@@ -6,6 +6,9 @@ import { swaggerSpec } from "./configs/swagger.config.js";
 import { connectDB } from "./configs/db.config.js";
 import responseUtils from "./utils/response.utils.js";
 import routes from "./routes.js";
+import { config } from "@dotenvx/dotenvx";
+
+config();
 
 const app = express();
 
