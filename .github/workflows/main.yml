@@ -109,13 +109,25 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            docker pull ${{ steps.login-ecr.outputs.registry }}/$ECR_REPOSITORY:$IMAGE_TAG
+            ECR_REPOSITORY="${{ env.ECR_REPOSITORY }}"
+            IMAGE_TAG="${{ env.IMAGE_TAG }}"
+            CONTAINER_NAME="${{ env.CONTAINER_NAME }}"
+            AWS_ACCOUNT_ID=215771971945
+            AWS_REGION="eu-north-1"
+
+            echo "Pulling latest image from ECR..."
+            docker pull $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
+
+            echo "Stopping old container (if running)..."
             docker stop $CONTAINER_NAME || true
             docker rm $CONTAINER_NAME || true
+
+            echo "Running new container..."
             docker run -d --name $CONTAINER_NAME \
               -e NODE_ENV=production \
               -e PORT=4001 \
-              -e MONGO_URI=${{ secrets.MONGO_URI }} \
-              -e JWT_SECRET=${{ secrets.JWT_SECRET }} \
+              -e MONGO_URI='${{ secrets.MONGO_URI }}' \
+              -e JWT_SECRET='${{ secrets.JWT_SECRET }}' \
               -p 4001:4001 \
-              ${{ steps.login-ecr.outputs.registry }}/$ECR_REPOSITORY:$IMAGE_TAG
+              $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
+
