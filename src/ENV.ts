@@ -3,7 +3,7 @@ import { config } from "@dotenvx/dotenvx";
 config();
 
 export default {
-    MODE: process.env.MODE || "development",
+    NODE_ENV: process.env.NODE_ENV || "development",
     PORT: process.env.PORT || "4000",
     MONGO_URI: process.env.MONGO_URI,
 

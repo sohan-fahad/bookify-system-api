@@ -4,7 +4,7 @@ up:
 	
 prod:
 	docker compose -f docker-compose.yml down
-	docker compose -f docker-compose.yml up referral-system-api-prod  -d --remove-orphans --force-recreate
+	docker compose -f docker-compose.yml up -d --remove-orphans --force-recreate
 	
 reset:
 	docker compose down -v --remove-orphans

@@ -10,6 +10,16 @@ jobs:
     
     steps:
     - uses: actions/checkout@v3
+
+    - name: Generate .env
+      run: |
+        cat > .env << 'EOF'
+        MODE=production
+        PORT=4001
+        MONGO_URI=${{ secrets.MONGO_URI }}
+        JWT_SECRET=${{ secrets.JWT_SECRET }}
+        EOF
+
     - name: Login Dockerhub
       env:
         DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}

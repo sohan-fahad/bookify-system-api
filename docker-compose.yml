@@ -11,6 +11,7 @@ services:
   
   
   referral-system-api:
+    env_file: .env
     build:
       context: .
       dockerfile: Dockerfile
@@ -20,14 +21,6 @@ services:
     restart: always
     ports:
       - "4001:4001"
-    environment:
-      - MODE=production
-      - PORT=4001
-      - MONGO_URI=mongodb://admin:12345678@db:27017/referral-system-db?authSource=admin
-    volumes:
-      - ./dist:/app/dist
-      - ./package.json:/app/package.json
-      - ./pnpm-lock.yaml:/app/pnpm-lock.yaml
 
 volumes:
   mongo_data:

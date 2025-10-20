@@ -9,13 +9,13 @@ const seedBooks = async () => {
         await connectDB();
         console.log('✅ Connected to database');
 
-        // const existingBooks = await Book.find({});
-        // if (existingBooks.length > 0) {
-        //     return;
-        // }
+        const existingBooks = await Book.find({});
+        if (existingBooks.length > 0) {
+            return;
+        }
 
-        const deleteResult = await Book.deleteMany({});
-        console.log(`🗑️  Deleted ${deleteResult.deletedCount} existing books`);
+        // const deleteResult = await Book.deleteMany({});
+        // console.log(`🗑️  Deleted ${deleteResult.deletedCount} existing books`);
 
         const insertedBooks = await Book.insertMany(books);
         console.log(`✅ Seeded ${insertedBooks.length} books successfully!`);

@@ -1,29 +1,23 @@
 FROM node:22-alpine
 
+RUN apk add --no-cache dumb-init curl
 RUN npm install -g pnpm@10.13.1
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
 COPY package.json pnpm-lock.yaml ./
-
 RUN pnpm install --frozen-lockfile
 
 COPY . .
+COPY .env .
 
 RUN pnpm build
-
 RUN pnpm prune --prod
 
-RUN echo "Verifying copied files:" && ls -la dist
+ENV PORT=4001
+EXPOSE 4001
 
-ARG PORT=4001
-ENV PORT=${PORT}
+HEALTHCHECK --interval=10s --timeout=5s --retries=3 \
+  CMD curl --fail http://localhost:${PORT}/health || exit 1
 
-EXPOSE ${PORT}
-
-# Healthcheck for container monitoring
-HEALTHCHECK --interval=5s --timeout=3s \
-    CMD curl --fail --retry 3 --retry-delay 5 http://localhost:${PORT}/health || exit 1
-
-
-CMD ["dumb-init", "node", "dist/index.js"]
+CMD ["dumb-init", "node", "dist/app.js"]
