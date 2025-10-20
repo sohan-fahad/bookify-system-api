@@ -31,4 +31,13 @@ jobs:
     - name: Delete Old docker container
       run: sudo docker rm -f referral-system-container || true
     - name: Run Docker Container
-      run: sudo docker run -d --name referral-system-container sohan44512/referral-system:latest
+      run: |
+        sudo docker run -d \
+          --name referral-system-container \
+          -p 4001:4001 \
+          -e MODE=production \
+          -e PORT=4001 \
+          -e MONGO_URI=${{secrets.MONGO_URI}} \
+          -e JWT_SECRET=${{secrets.JWT_SECRET}} \
+          --restart unless-stopped \
+          sohan44512/referral-system:latest
