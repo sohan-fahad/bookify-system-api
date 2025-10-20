@@ -115,6 +115,9 @@ jobs:
             AWS_ACCOUNT_ID=215771971945
             AWS_REGION="eu-north-1"
 
+            echo "Logging into ECR..."
+            aws ecr get-login-password --region $AWS_REGION | sudo docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
+
             echo "Pulling latest image from ECR..."
             sudo docker pull $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
 
