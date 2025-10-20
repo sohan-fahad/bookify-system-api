@@ -3,7 +3,6 @@ import cors from "cors";
 import swaggerUi from "swagger-ui-express";
 import mongoose from "mongoose";
 import { swaggerSpec } from "./configs/swagger.config.js";
-import ENV from "./ENV.js";
 import { connectDB } from "./configs/db.config.js";
 import responseUtils from "./utils/response.utils.js";
 import routes from "./routes.js";
@@ -20,7 +19,7 @@ app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Health check
 app.get("/", (_req, res) => {
-    responseUtils.successResponse(res, { data: ENV, message: "Referral System API is running" });
+    responseUtils.successResponse(res, { data: process.env, message: "Referral System API is running" });
 });
 
 app.get("/health", (_req, res) => {
@@ -39,7 +38,7 @@ connectDB().catch((err) => {
 });
 
 
-const PORT = Number(ENV.PORT);
+const PORT = Number(process.env.PORT);
 
 app.listen(PORT, () => {
     console.log(`Referral System API is running on port ${PORT}`);

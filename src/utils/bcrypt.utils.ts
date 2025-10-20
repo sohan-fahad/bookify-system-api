@@ -1,8 +1,7 @@
 import bcrypt from "bcryptjs";
-import ENV from "../ENV.js";
 
 const hashPassword = async (password: string): Promise<string> => {
-    return await bcrypt.hash(password, ENV.JWT.saltRounds);
+    return await bcrypt.hash(password, Number(process.env.JWT_SALT_ROUNDS));
 };
 
 const comparePassword = async (

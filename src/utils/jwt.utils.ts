@@ -1,5 +1,4 @@
 import jwt, { SignOptions, JwtPayload } from "jsonwebtoken";
-import ENV from "../ENV.js";
 
 interface ITokenRequestPayload {
     user: {
@@ -23,7 +22,7 @@ interface ITokenResponsePayload extends JwtPayload {
 
 const signToken = (payload: ITokenRequestPayload, options?: SignOptions): string => {
     try {
-        return jwt.sign(payload, ENV.JWT.secret, options);
+        return jwt.sign(payload, process.env.JWT_SECRET || "", options);
     } catch (error: any) {
         throw new Error(`Token signing failed: ${error.message}`);
     }
@@ -32,7 +31,7 @@ const signToken = (payload: ITokenRequestPayload, options?: SignOptions): string
 
 const verifyToken = (token: string): ITokenResponsePayload => {
     try {
-        return jwt.verify(token, ENV.JWT.secret) as ITokenResponsePayload;
+        return jwt.verify(token, process.env.JWT_SECRET || "") as ITokenResponsePayload;
     } catch (error: any) {
         if (error.name === 'TokenExpiredError') {
             throw new Error('Token has expired');
@@ -53,7 +52,7 @@ const decodeToken = (token: string): ITokenResponsePayload | null => {
 
 const makeAccessToken = (payload: ITokenRequestPayload): string => {
     return signToken(payload, {
-        expiresIn: ENV.JWT.tokenExpireIn,
+        expiresIn: "1d",
         audience: 'access',
     });
 };
@@ -62,7 +61,7 @@ const makeRefreshToken = (payload: ITokenRequestPayload): string => {
     return signToken(
         { ...payload, isRefreshToken: true },
         {
-            expiresIn: ENV.JWT.refreshTokenExpireIn,
+            expiresIn: "7d",
             audience: 'refresh',
         }
     );

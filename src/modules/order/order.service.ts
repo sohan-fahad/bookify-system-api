@@ -5,7 +5,8 @@ import userService from "../user/user.service";
 import mongoose, { FilterQuery, Types } from "mongoose";
 import bookService from "../book/book.service";
 import { Referral, ReferralStatus } from "../referral/referral.model";
-import ENV from "../../ENV";
+
+const FIRST_PURCHASE_CREDITS = 2;
 
 const createOrder = async (order: CreateOrderSchemaType) => {
     const { customerId, items } = order;
@@ -65,7 +66,7 @@ const createOrder = async (order: CreateOrderSchemaType) => {
                     },
                     {
                         status: ReferralStatus.CONVERTED,
-                        $inc: { creditsAwarded: ENV.FIRST_PURCHASE_CREDITS },
+                        $inc: { creditsAwarded: FIRST_PURCHASE_CREDITS },
                         convertedAt: new Date()
                     },
                     { session }
@@ -74,17 +75,17 @@ const createOrder = async (order: CreateOrderSchemaType) => {
                 await Promise.all([
                     User.updateOne(
                         { _id: referrer._id },
-                        { $inc: { credits: ENV.FIRST_PURCHASE_CREDITS } },
+                        { $inc: { credits: FIRST_PURCHASE_CREDITS } },
                         { session }
                     ),
                     User.updateOne(
                         { _id: customer._id },
-                        { $inc: { credits: ENV.FIRST_PURCHASE_CREDITS } },
+                        { $inc: { credits: FIRST_PURCHASE_CREDITS } },
                         { session }
                     ),
                     Order.updateOne(
                         { _id: newOrder._id },
-                        { $set: { totalCreditsEarned: ENV.FIRST_PURCHASE_CREDITS } },
+                        { $set: { totalCreditsEarned: FIRST_PURCHASE_CREDITS } },
                         { session }
                     )
                 ]);
