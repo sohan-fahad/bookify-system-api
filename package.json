@@ -26,10 +26,10 @@
     "nanoid": "^5.1.6",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
-    "zod": "^4.1.12"
+    "zod": "^4.1.12",
+    "@dotenvx/dotenvx": "^1.51.0"
   },
   "devDependencies": {
-    "@dotenvx/dotenvx": "^1.51.0",
     "@types/bcrypt": "^6.0.0",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
