@@ -1,5 +1,5 @@
 import Book from "./book.model";
-import { BookQuerySchemaType } from "./book.schema";
+import { BookQuerySchemaType } from "./book.schema.js";
 
 const getBooks = async (query: BookQuerySchemaType) => {
     const { limit, search, page, sort } = query;

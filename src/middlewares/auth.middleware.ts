@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import responseUtils from "../utils/response.utils";
-import jwtUtils from "../utils/jwt.utils";
+import responseUtils from "../utils/response.utils.js";
+import jwtUtils from "../utils/jwt.utils.js";
 
 export default async (req: Request, res: Response, next: NextFunction) => {
 

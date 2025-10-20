@@ -1,7 +1,7 @@
-import { BookQuerySchemaType } from "./book.schema";
+import { BookQuerySchemaType } from "./book.schema.js";
 import { Request, Response } from "express";
-import bookService from "./book.service";
-import responseUtils from "../../utils/response.utils";
+import bookService from "./book.service.js";
+import responseUtils from "../../utils/response.utils.js";
 
 const getBooksHandler = async (req: Request, res: Response) => {
     try {

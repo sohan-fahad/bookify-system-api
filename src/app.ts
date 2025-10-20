@@ -7,6 +7,7 @@ import { connectDB } from "./configs/db.config.js";
 import responseUtils from "./utils/response.utils.js";
 import routes from "./routes.js";
 import dotenv from "dotenv";
+import seedBooks from "./scripts/seed.js";
 
 dotenv.config();
 
@@ -38,6 +39,7 @@ connectDB().catch((err) => {
     console.error("MongoDB connection error:", err);
 }).then(() => {
     console.log("MongoDB connected successfully");
+    seedBooks();
 });
 
 

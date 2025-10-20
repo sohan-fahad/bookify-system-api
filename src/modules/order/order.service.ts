@@ -1,10 +1,10 @@
-import { OrderQuerySchemaType, CreateOrderSchemaType, OrderItemSchemaType } from "./order.schema";
-import { IOrder, Order } from "./order.model";
-import User from "../user/user.model";
-import userService from "../user/user.service";
+import { OrderQuerySchemaType, CreateOrderSchemaType, OrderItemSchemaType } from "./order.schema.js";
+import { IOrder, Order } from "./order.model.js";
+import User from "../user/user.model.js";
+import userService from "../user/user.service.js";
 import mongoose, { FilterQuery, Types } from "mongoose";
-import bookService from "../book/book.service";
-import { Referral, ReferralStatus } from "../referral/referral.model";
+import bookService from "../book/book.service.js";
+import { Referral, ReferralStatus } from "../referral/referral.model.js";
 
 const FIRST_PURCHASE_CREDITS = 2;
 

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import userService from "./user.service";
-import responseUtils from "../../utils/response.utils";
-import { ITokenResponsePayload } from "../../utils/jwt.utils";
+import userService from "./user.service.js";
+import responseUtils from "../../utils/response.utils.js";
+import { ITokenResponsePayload } from "../../utils/jwt.utils.js";
 
 const getMyProfileHandler = async (req: Request, res: Response) => {
     const { id } = req.user as ITokenResponsePayload['user'];

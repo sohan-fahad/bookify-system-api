@@ -1,8 +1,8 @@
 import express, { Router } from "express"
-import orderController from "./order.controller";
-import validatorMiddleware from "../../middlewares/validator.middleware";
-import { createOrderSchema } from "./order.schema";
-import authMiddleware from "../../middlewares/auth.middleware";
+import orderController from "./order.controller.js";
+import validatorMiddleware from "../../middlewares/validator.middleware.js";
+import { createOrderSchema } from "./order.schema.js";
+import authMiddleware from "../../middlewares/auth.middleware.js";
 
 const orderRoutes: Router = express.Router();
 

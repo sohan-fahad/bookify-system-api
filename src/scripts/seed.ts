@@ -35,4 +35,4 @@ const seedBooks = async () => {
     }
 };
 
-seedBooks();
+export default seedBooks;

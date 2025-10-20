@@ -1,5 +1,5 @@
-import { Referral } from "./referral.model";
-import { ReferralQuerySchemaType } from "./referral.schema";
+import { Referral } from "./referral.model.js";
+import { ReferralQuerySchemaType } from "./referral.schema.js";
 
 const createReferral = async (referrerUserId: string, referredUserId: string) => {
     const referral = await Referral.create({

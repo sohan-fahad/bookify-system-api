@@ -1,9 +1,9 @@
-import { RegisterSchemaType } from "../auth/auth.schema";
-import User, { IUser } from "./user.model";
-import bcryptUtils from "../../utils/bcrypt.utils";
-import helperUtils from "../../utils/helper.utils";
+import { RegisterSchemaType } from "../auth/auth.schema.js";
+import User, { IUser } from "./user.model.js";
+import bcryptUtils from "../../utils/bcrypt.utils.js";
+import helperUtils from "../../utils/helper.utils.js";
 import mongoose from "mongoose";
-import { Referral } from "../referral/referral.model";
+import { Referral } from "../referral/referral.model.js";
 interface UserQuery {
     [key: string]: any;
 }

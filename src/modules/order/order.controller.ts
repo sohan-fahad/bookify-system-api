@@ -1,7 +1,7 @@
-import { OrderQuerySchemaType, CreateOrderSchemaType } from "./order.schema";
-import orderService from "./order.service";
+import { OrderQuerySchemaType, CreateOrderSchemaType } from "./order.schema.js";
+import orderService from "./order.service.js";
 import { Request, Response } from "express";
-import responseUtils from "../../utils/response.utils";
+import responseUtils from "../../utils/response.utils.js";
 
 const createOrderHandler = async (req: Request, res: Response) => {
     try {

@@ -1,7 +1,7 @@
 import express, { Router } from "express"
-import bookController from "./book.controller";
-import validatorMiddleware from "../../middlewares/validator.middleware";
-import { bookQuerySchema } from "./book.schema";
+import bookController from "./book.controller.js";
+import validatorMiddleware from "../../middlewares/validator.middleware.js";
+import { bookQuerySchema } from "./book.schema.js";
 
 const bookRoutes: Router = express.Router();
 

@@ -1,8 +1,8 @@
-import { ITokenResponsePayload } from "../../utils/jwt.utils";
-import responseUtils from "../../utils/response.utils";
-import userService from "../user/user.service";
-import { ReferralQuerySchemaType } from "./referral.schema";
-import referralService from "./referral.service";
+import { ITokenResponsePayload } from "../../utils/jwt.utils.js";
+import responseUtils from "../../utils/response.utils.js";
+import userService from "../user/user.service.js";
+import { ReferralQuerySchemaType } from "./referral.schema.js";
+import referralService from "./referral.service.js";
 import { Request, Response } from "express"
 
 const getAllReferralHandler = async (req: Request, res: Response) => {

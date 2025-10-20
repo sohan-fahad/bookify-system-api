@@ -1,7 +1,7 @@
 import express, { Router } from "express"
-import { referralQuerySchema } from "./referral.schema";
-import validatorMiddleware from "../../middlewares/validator.middleware";
-import referralController from "./referral.controller";
+import { referralQuerySchema } from "./referral.schema.js";
+import validatorMiddleware from "../../middlewares/validator.middleware.js";
+import referralController from "./referral.controller.js";
 
 const referralRoutes: Router = express.Router();
 

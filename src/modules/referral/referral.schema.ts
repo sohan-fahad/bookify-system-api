@@ -1,5 +1,5 @@
 import z from "zod";
-import { ReferralStatus } from "./referral.model";
+import { ReferralStatus } from "./referral.model.js";
 
 export const referralQuerySchema = z.object({
     referrerUserId: z.string().optional(),
