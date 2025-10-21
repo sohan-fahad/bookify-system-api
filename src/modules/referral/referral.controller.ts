@@ -40,7 +40,7 @@ const getMyReferralsHandler = async (req: Request, res: Response) => {
                 statusCode: 404,
             });
         }
-        query.referrerUserId = id;
+        query.referrerUser = id;
 
         const { data, meta } = await referralService.getAll(query);
 

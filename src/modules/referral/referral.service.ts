@@ -10,19 +10,19 @@ const createReferral = async (referrerUserId: string, referredUserId: string) =>
 };
 
 const getAll = async (query: ReferralQuerySchemaType) => {
-    const { page, limit, sort, referrerUserId, referredUserId, status } = query;
+    const { page, limit, sort, referrerUser, referredUser, status } = query;
 
     const sortBy = sort === "asc" ? 1 : -1;
     const skip = (Number(page) - 1) * Number(limit);
 
     const queryObject: any = {};
 
-    if (referrerUserId) {
-        queryObject.referrerUser = referrerUserId;
+    if (referrerUser) {
+        queryObject.referrerUser = referrerUser;
     }
 
-    if (referredUserId) {
-        queryObject.referredUser = referredUserId;
+    if (referredUser) {
+        queryObject.referredUser = referredUser;
     }
 
     if (status) {
