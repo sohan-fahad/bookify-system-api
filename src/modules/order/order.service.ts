@@ -5,6 +5,7 @@ import userService from "../user/user.service.js";
 import mongoose, { FilterQuery, Types } from "mongoose";
 import bookService from "../book/book.service.js";
 import { Referral, ReferralStatus } from "../referral/referral.model.js";
+import referralService from "../referral/referral.service.js";
 
 const FIRST_PURCHASE_CREDITS = 2;
 
@@ -54,14 +55,13 @@ const createOrder = async (order: CreateOrderSchemaType) => {
     try {
         const [newOrder] = await Order.create([orderData], { session });
 
-
         if (isFirstPurchase && customer.referredBy) {
-            const referrer = await userService.findById(customer.referredBy.toString());
+            const referrer = await referralService.findOnePendingByReferredUser(customer._id.toString());
+
 
             if (referrer) {
                 await Referral.updateOne(
                     {
-                        referrerUser: referrer._id,
                         referredUser: customer._id as Types.ObjectId
                     },
                     {
@@ -72,14 +72,15 @@ const createOrder = async (order: CreateOrderSchemaType) => {
                     { session }
                 );
 
+
                 await Promise.all([
                     User.updateOne(
-                        { _id: referrer._id },
+                        { _id: referrer.referredUser },
                         { $inc: { credits: FIRST_PURCHASE_CREDITS } },
                         { session }
                     ),
                     User.updateOne(
-                        { _id: customer._id },
+                        { _id: referrer.referrerUser },
                         { $inc: { credits: FIRST_PURCHASE_CREDITS } },
                         { session }
                     ),

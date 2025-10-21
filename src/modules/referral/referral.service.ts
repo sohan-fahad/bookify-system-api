@@ -1,4 +1,4 @@
-import { Referral } from "./referral.model.js";
+import { IReferral, Referral, ReferralStatus } from "./referral.model.js";
 import { ReferralQuerySchemaType } from "./referral.schema.js";
 
 const createReferral = async (referrerUserId: string, referredUserId: string) => {
@@ -60,9 +60,14 @@ const getStats = async (userId: string) => {
     };
 };
 
+const findOnePendingByReferredUser = async (userId: string): Promise<IReferral | null> => {
+    return await Referral.findOne({ status: ReferralStatus.PENDING, referredUser: userId });
+};
+
 
 export default {
     createReferral,
     getAll,
     getStats,
+    findOnePendingByReferredUser,
 };
