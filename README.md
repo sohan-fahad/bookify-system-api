@@ -30,7 +30,7 @@ The system architecture and database UML diagrams are available at: [System Arch
 ### 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/sohan-fahad/bookify-system-api.git
 cd referral-system-api
 ```
 
