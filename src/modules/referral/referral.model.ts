@@ -7,8 +7,8 @@ export enum ReferralStatus {
 
 export interface IReferral extends Document {
     _id: Types.ObjectId;
-    referrerUserId: Types.ObjectId;
-    referredUserId: Types.ObjectId;
+    referrerUser: Types.ObjectId;
+    referredUser: Types.ObjectId;
     status: ReferralStatus;
     creditsAwarded: number;
     convertedAt?: Date;
@@ -18,12 +18,12 @@ export interface IReferral extends Document {
 
 const ReferralSchema = new Schema<IReferral>(
     {
-        referrerUserId: {
+        referrerUser: {
             type: Schema.Types.ObjectId,
             ref: 'User',
             required: true,
         },
-        referredUserId: {
+        referredUser: {
             type: Schema.Types.ObjectId,
             ref: 'User',
             required: true,
@@ -48,8 +48,7 @@ const ReferralSchema = new Schema<IReferral>(
         timestamps: true,
     }
 );
-
-ReferralSchema.index({ referrerUserId: 1 });
+ReferralSchema.index({ referrerUser: 1 });
 ReferralSchema.index({ status: 1 });
 
 export const Referral = mongoose.models.Referral || mongoose.model<IReferral>('Referral', ReferralSchema);

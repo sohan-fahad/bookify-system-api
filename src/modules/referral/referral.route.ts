@@ -132,14 +132,14 @@ const referralRoutes: Router = express.Router();
  *         description: Number of items per page
  *         example: 10
  *       - in: query
- *         name: referrerUserId
+ *         name: referrerUser
  *         required: false
  *         schema:
  *           type: string
  *         description: Filter by user who made the referral (MongoDB ObjectId)
  *         example: 507f1f77bcf86cd799439011
  *       - in: query
- *         name: referredUserId
+ *         name: referredUser
  *         required: false
  *         schema:
  *           type: string
@@ -428,22 +428,22 @@ referralRoutes.get(
 
 /**
  * @openapi
- * /api/v1/referrals/my/metrics:
+ * /api/v1/referrals/my/stats:
  *   get:
- *     summary: Get referral metrics
- *     description: Retrieve aggregated metrics about referrals including total, converted, and pending counts
+ *     summary: Get referral stats
+ *     description: Retrieve aggregated stats about referrals including total, converted, and pending counts
  *     tags:
  *       - Referral
  *     responses:
  *       200:
- *         description: Metrics fetched successfully
+ *         description: Stats fetched successfully
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/MetricsResponse'
+ *               $ref: '#/components/schemas/StatsResponse'
  *             example:
  *               success: true
- *               message: Metrics fetched successfully
+ *               message: Stats fetched successfully
  *               data:
  *                 total: 50
  *                 totalConverted: 10
@@ -459,8 +459,8 @@ referralRoutes.get(
  *               message: Internal server error
  */
 referralRoutes.get(
-    "/my/metrics",
-    referralController.getMetricsHandler
+    "/my/stats",
+    referralController.getStatsHandler
 );
 
 export default referralRoutes;

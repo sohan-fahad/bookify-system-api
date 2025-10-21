@@ -59,7 +59,7 @@ const getMyReferralsHandler = async (req: Request, res: Response) => {
     }
 }
 
-const getMetricsHandler = async (req: Request, res: Response) => {
+const getStatsHandler = async (req: Request, res: Response) => {
     try {
         const { id } = req.user as ITokenResponsePayload['user'];
 
@@ -71,10 +71,10 @@ const getMetricsHandler = async (req: Request, res: Response) => {
             });
         }
 
-        const metrics = await referralService.getMetrics(id);
+        const stats = await referralService.getStats(id);
         return responseUtils.successResponse(res, {
-            data: metrics,
-            message: "Metrics fetched successfully",
+            data: stats,
+            message: "Stats fetched successfully",
             statusCode: 200,
         });
     }
@@ -89,5 +89,5 @@ const getMetricsHandler = async (req: Request, res: Response) => {
 export default {
     getAllReferralHandler,
     getMyReferralsHandler,
-    getMetricsHandler,
+    getStatsHandler,
 }

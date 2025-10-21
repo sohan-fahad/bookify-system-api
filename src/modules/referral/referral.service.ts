@@ -18,11 +18,11 @@ const getAll = async (query: ReferralQuerySchemaType) => {
     const queryObject: any = {};
 
     if (referrerUserId) {
-        queryObject.referrerUserId = referrerUserId;
+        queryObject.referrerUser = referrerUserId;
     }
 
     if (referredUserId) {
-        queryObject.referredUserId = referredUserId;
+        queryObject.referredUser = referredUserId;
     }
 
     if (status) {
@@ -34,7 +34,7 @@ const getAll = async (query: ReferralQuerySchemaType) => {
         .skip(skip)
         .sort({ createdAt: sortBy })
         .select("-__v")
-        .populate("referredUserId", "name email")
+        .populate("referredUser", "name email")
         .lean();
 
     const total = await Referral.countDocuments(queryObject);
@@ -49,10 +49,10 @@ const getAll = async (query: ReferralQuerySchemaType) => {
     };
 };
 
-const getMetrics = async (userId: string) => {
-    const total = await Referral.countDocuments({ referrerUserId: userId });
-    const totalConverted = await Referral.countDocuments({ status: "converted", referrerUserId: userId });
-    const totalPending = await Referral.countDocuments({ status: "pending", referrerUserId: userId });
+const getStats = async (userId: string) => {
+    const total = await Referral.countDocuments({ referrerUser: userId });
+    const totalConverted = await Referral.countDocuments({ status: "converted", referrerUser: userId });
+    const totalPending = await Referral.countDocuments({ status: "pending", referrerUser: userId });
     return {
         total,
         totalConverted: totalConverted,
@@ -64,5 +64,5 @@ const getMetrics = async (userId: string) => {
 export default {
     createReferral,
     getAll,
-    getMetrics,
+    getStats,
 };

@@ -2,8 +2,8 @@ import z from "zod";
 import { ReferralStatus } from "./referral.model.js";
 
 export const referralQuerySchema = z.object({
-    referrerUserId: z.string().optional(),
-    referredUserId: z.string().optional(),
+    referrerUser: z.string().optional(),
+    referredUser: z.string().optional(),
     status: z.enum(ReferralStatus).optional(),
     page: z.string(),
     limit: z.string(),

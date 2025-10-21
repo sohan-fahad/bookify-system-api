@@ -2,7 +2,7 @@ import { RegisterSchemaType } from "../auth/auth.schema.js";
 import User, { IUser } from "./user.model.js";
 import bcryptUtils from "../../utils/bcrypt.utils.js";
 import helperUtils from "../../utils/helper.utils.js";
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
 import { Referral } from "../referral/referral.model.js";
 interface UserQuery {
     [key: string]: any;
@@ -44,6 +44,8 @@ const createUser = async (input: RegisterSchemaType) => {
         password: hashedPassword,
     };
 
+    console.log("createUser data", data);
+
     let referrer = null;
 
     if (rest.referralCode) {
@@ -59,10 +61,12 @@ const createUser = async (input: RegisterSchemaType) => {
     try {
         const [newUser] = await User.create([data], { session });
 
+        console.log("createUser newUser", newUser);
+
         if (referrer && newUser) {
             await Referral.create([{
-                referrerUserId: referrer._id,
-                referredUserId: newUser._id,
+                referrerUser: referrer._id,
+                referredUser: newUser._id,
                 creditsAwarded: 0
             }], { session });
         }

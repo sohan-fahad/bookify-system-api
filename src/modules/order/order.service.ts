@@ -22,7 +22,7 @@ const createOrder = async (order: CreateOrderSchemaType) => {
     const orderItems = validatedBooks.map(book => {
         const item = items.find(i => i.bookId === (book._id as Types.ObjectId).toString());
         return {
-            bookId: book._id as Types.ObjectId,
+            book: book._id as Types.ObjectId,
             quantity: item!.quantity,
             price: book.price
         };
@@ -41,7 +41,7 @@ const createOrder = async (order: CreateOrderSchemaType) => {
 
 
     const orderData: Partial<IOrder> = {
-        customerId: new Types.ObjectId(customerId),
+        customer: new Types.ObjectId(customerId),
         items: orderItems,
         totalAmount,
         isFirstPurchase,
@@ -61,8 +61,8 @@ const createOrder = async (order: CreateOrderSchemaType) => {
             if (referrer) {
                 await Referral.updateOne(
                     {
-                        referrerUserId: referrer._id,
-                        referredUserId: customer._id
+                        referrerUser: referrer._id,
+                        referredUser: customer._id as Types.ObjectId
                     },
                     {
                         status: ReferralStatus.CONVERTED,
@@ -112,7 +112,7 @@ const getOrders = async (query: OrderQuerySchemaType) => {
 
     const filter: FilterQuery<IOrder> = {};
     if (customerId) {
-        filter.customerId = new Types.ObjectId(customerId);
+        filter.customer = new Types.ObjectId(customerId);
     }
 
     const orders = await Order.find(filter)
@@ -120,8 +120,8 @@ const getOrders = async (query: OrderQuerySchemaType) => {
         .skip(skip)
         .limit(Number(limit))
         .select("-__v")
-        .populate("customerId", "name email")
-        .populate("items.bookId", "title author year language country price")
+        .populate("customer", "name email")
+        .populate("items.book", "title author year language country price")
         .lean();
 
     const total = await Order.countDocuments(filter);
@@ -139,8 +139,8 @@ const getOrders = async (query: OrderQuerySchemaType) => {
 const getOrderById = async (id: string) => {
     return await Order.findById(id)
         .select("-__v")
-        .populate("customerId", "name email")
-        .populate("items.bookId", "title author year language country price")
+        .populate("customer", "name email")
+        .populate("items.book", "title author year language country price")
         .lean();
 };
 
