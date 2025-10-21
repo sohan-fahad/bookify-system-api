@@ -15,23 +15,5 @@ services:
       start_interval: 1s
       retries: 30
 
-  # referral-system-api:
-  #   container_name: referral-system-api
-  #   image: referral-system-api
-  #   build:
-  #     context: .
-  #     dockerfile: ./Dockerfile.dev
-  #   restart: always
-  #   ports:
-  #     - 4001:4001
-  #   volumes:
-  #     - .:/app
-  #     - referral-system-api-node-modules:/app/node_modules
-  #   env_file:
-  #     - .env
-  #   command: 'pnpm run dev'
-  #   depends_on:
-  #     - db
-
 volumes:
   mongo_data:

@@ -23,7 +23,7 @@ app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Health check
 app.get("/", (_req, res) => {
-    responseUtils.successResponse(res, { data: process.env, message: "Referral System API is running" });
+    responseUtils.successResponse(res, { data: null, message: "Referral System API is running" });
 });
 
 app.get("/health", (_req, res) => {

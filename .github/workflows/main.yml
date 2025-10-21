@@ -57,7 +57,7 @@ jobs:
             ECR_REPOSITORY="${{ env.ECR_REPOSITORY }}"
             IMAGE_TAG="${{ env.IMAGE_TAG }}"
             CONTAINER_NAME="${{ env.CONTAINER_NAME }}"
-            AWS_ACCOUNT_ID=215771971945
+            AWS_ACCOUNT_ID= ${{ secrets.AWS_ACCOUNT_ID }}
             AWS_REGION="eu-north-1"
 
             echo "Logging into ECR..."
