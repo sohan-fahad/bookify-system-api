@@ -6,13 +6,15 @@ A comprehensive ebook platform with referral system API built with Node.js, Expr
 
 The system architecture and database UML diagrams are available at: [System Architecture & DB UML Diagrams](https://app.eraser.io/workspace/3BAchhLQ5Wy3V9cnsKdK?origin=share)
 
+The documentation of the APIs are available at: [Bookify API Docs](https://api-bookify.sohanfahad.dev/docs/)
+
 ## 🚀 Features
 
 - **User Management**: Registration, authentication, and profile
 - **Referral System**: Users can refer others using unique referral codes
 - **Credit System**: Earn credits for successful referrals and first purchases
 - **Order Management**: Process orders and award credits
-- **Book Catalog**: Manage book inventory
+- **Book Catalog**: Books list
 - **API Documentation**: Swagger/OpenAPI documentation
 - **Docker Support**: Containerized deployment
 - **CI/CD Pipeline**: Automated deployment to AWS ECR and EC2
@@ -31,7 +33,7 @@ The system architecture and database UML diagrams are available at: [System Arch
 
 ```bash
 git clone https://github.com/sohan-fahad/bookify-system-api.git
-cd referral-system-api
+cd bookify-system-api
 ```
 
 ### 2. Install Dependencies
@@ -229,7 +231,6 @@ Configure these secrets in your GitHub repository:
 
 - `AWS_ACCESS_KEY_ID` - AWS access key
 - `AWS_SECRET_ACCESS_KEY` - AWS secret key
-- `AWS_ACCOUNT_ID` - AWS account ID
 - `EC2_HOST` - EC2 instance IP
 - `EC2_SSH_KEY` - SSH private key for EC2
 - `MONGO_URI` - MongoDB connection string
@@ -242,20 +243,5 @@ Configure these secrets in your GitHub repository:
 - **Password Hashing**: Bcrypt for password security
 - **Input Validation**: Zod schema validation
 - **CORS Protection**: Cross-origin resource sharing
-
-
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🆘 Support
-
-For support and questions:
-- Create an issue in the repository
-- Check the API documentation at `/docs`
-- Review the system architecture diagrams
-
-
 
 **Bookify System API** - Built with ❤️ using Node.js, Express, TypeScript, and MongoDB
