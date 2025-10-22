@@ -4,9 +4,9 @@ const options: swaggerJsdoc.Options = {
     definition: {
         openapi: "3.0.3",
         info: {
-            title: "Referral System API",
+            title: "Bookify System API",
             version: "1.0.0",
-            description: "A referral system API for users and referrals",
+            description: "A bookify system API for users and books",
         },
         components: {
             securitySchemes: {
